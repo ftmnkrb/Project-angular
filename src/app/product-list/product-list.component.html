@@ -1,0 +1,58 @@
+<div *ngIf="getProducts().length > 0; else noProducts">
+  <ng-template [ngTemplateOutlet]="productList1" [ngTemplateOutletContext]="{products :getProducts()}"></ng-template>
+  <ng-template [ngTemplateOutlet]="productList2" [ngTemplateOutletContext]="{products :getProducts()}"></ng-template>
+</div>
+
+<ng-template #productList1 let-products="products">
+     <h2>En Çok Satanlar</h2>
+  <div *ngFor="let product of products">
+    <div class="card mb-3" *ngIf="product.isActive">
+      <div class="row">
+        <div class="col-3">
+          <img
+            src="/assets/angular-shop-app-img/{{ product.imgUrl }}"
+            alt=""
+            class="img-fluid rounded-start"
+          />
+        </div>
+        <div class="col-9">
+          <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text">{{ product.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #productList2 let-products="products">
+     <h2>En Çok Beğenilenler</h2>
+
+  <div class="row">
+    <div *ngFor="let product of products" class="col-3">
+      
+        <div class="card mb-3" *ngIf="product.isActive">
+          <img
+            src="/assets/angular-shop-app-img/{{ product.imgUrl }}"
+            alt=""
+            class="card-img-top"
+          />
+        
+
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text">{{ product.description }}</p>
+        </div>
+     </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #noProducts>
+  <div class="alert alert-warning" *ngIf="products.length == 0">
+    no product!
+  </div>
+</ng-template>
+
+<!-- //yogay -->
